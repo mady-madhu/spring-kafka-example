@@ -15,7 +15,10 @@ public class AnalyticService {
 
     @Autowired
     private KafkaTemplate<String,String> kafkaTemplate;
-    @KafkaListener(topics = "test-topic",groupId = "test-group")
+
+    //using spring SpEL fetching props
+
+    @KafkaListener(topics = "#{kafkaConsumerProps.topicName}", groupId = "#{kafkaConsumerProps.groupId}")
     public void processMessage(ConsumerRecord<String,String> record, Acknowledgment acknowledgment){
 
         System.out.println(record);

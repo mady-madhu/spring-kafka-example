@@ -2,11 +2,12 @@ spring:
   application:
     name: kafka-example
   kafka:
-    bootstrap-servers: kafka
+    bootstrapServers: http://localhost:9092
     consumer:
       enable-auto-commit: false  # Disable auto-commit to handle commit manually
+      topicName: test-topic
       isolation-level: read_committed  # Ensures only committed messages are read
-      group-id: test-group
+      groupId: test-madhu-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
