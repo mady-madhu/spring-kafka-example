@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: kafka-example
+  kafka:
+    bootstrap-servers: kafka
+    consumer:
+      enable-auto-commit: false  # Disable auto-commit to handle commit manually
+      isolation-level: read_committed  # Ensures only committed messages are read
+      group-id: test-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      enable-idempotence: true  # Ensure producer idempotence
+      acks: all  # Ensure all in-sync replicas acknowledge the message
+      retries: 5  # Retrying indefinitely on failure
+      max-in-flight-requests-per-connection: 5  # Prevent reordering of messages
