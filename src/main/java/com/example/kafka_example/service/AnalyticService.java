@@ -1,5 +1,6 @@
 package com.example.kafka_example.service;
 
+import com.example.kafka_example.config.KafkaProducerProps;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,10 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnalyticService {
 
+    @Autowired
+    private KafkaTemplate<String,Object> kafkaTemplate;
 
 
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private KafkaProducerProps kafkaProducerProps;
+
+
 
     //using spring SpEL fetching props
 
@@ -22,6 +27,7 @@ public class AnalyticService {
     public void processMessage(ConsumerRecord<String,String> record, Acknowledgment acknowledgment){
 
         System.out.println(record);
+        kafkaTemplate.send(kafkaProducerProps.getTopicName(), record.value());
         acknowledgment.acknowledge();
     }
 }

@@ -11,6 +11,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
+      topicName: test-topics
       enable-idempotence: true  # Ensure producer idempotence
       acks: all  # Ensure all in-sync replicas acknowledge the message
       retries: 5  # Retrying indefinitely on failure
